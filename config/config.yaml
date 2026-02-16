@@ -88,45 +88,45 @@ platforms:
 # enabled: 可选，默认 true
 # max_age_days: 可选，覆盖全局 freshness_filter.max_age_days
 # ===============================================================
-rss:
-  enabled: true                       # 是否启用 RSS 抓取
+# rss:
+#   enabled: true                       # 是否启用 RSS 抓取
 
-  # 文章新鲜度过滤配置（全局默认值）
-  # 过滤掉发布时间超过指定天数的旧文章，避免同一篇文章重复出现在推送中
-  #
-  # 过滤逻辑：
-  #   - 文章发布时间距当前时间（app.timezone 时区）超过 N 天则不推送
-  #   - 无发布时间的文章会被保留（不过滤）
-  #
-  # ⚠️ 过滤时机：在推送阶段过滤
-  #    - 所有文章都会存入数据库（MCP Server 的 AI 查询仍可访问）
-  #    - 只有新鲜的文章会被推送到通知渠道
-  freshness_filter:
-    enabled: true                     # 是否启用新鲜度过滤（默认启用）
+#   # 文章新鲜度过滤配置（全局默认值）
+#   # 过滤掉发布时间超过指定天数的旧文章，避免同一篇文章重复出现在推送中
+#   #
+#   # 过滤逻辑：
+#   #   - 文章发布时间距当前时间（app.timezone 时区）超过 N 天则不推送
+#   #   - 无发布时间的文章会被保留（不过滤）
+#   #
+#   # ⚠️ 过滤时机：在推送阶段过滤
+#   #    - 所有文章都会存入数据库（MCP Server 的 AI 查询仍可访问）
+#   #    - 只有新鲜的文章会被推送到通知渠道
+#   freshness_filter:
+#     enabled: true                     # 是否启用新鲜度过滤（默认启用）
 
-    max_age_days: 3                   # 最大文章年龄（天）
-                                      # - 正整数：只推送 N 天内的文章
-                                      # - 0：禁用过滤，推送所有文章
+#     max_age_days: 3                   # 最大文章年龄（天）
+#                                       # - 正整数：只推送 N 天内的文章
+#                                       # - 0：禁用过滤，推送所有文章
 
-  # 单个 feed 可配置 max_age_days 覆盖全局设置：
-  # - 不配置：使用全局 freshness_filter.max_age_days（默认 3 天）
-  # - 正整数：覆盖全局设置，只推送此天数内的文章
-  # - 0：禁用此频道的新鲜度过滤，推送所有文章
-  feeds:
-    - id: "hacker-news"
-      name: "Hacker News"
-      url: "https://hnrss.org/frontpage"
-      # max_age_days: 1               # 示例：只推送1天内的文章
+#   # 单个 feed 可配置 max_age_days 覆盖全局设置：
+#   # - 不配置：使用全局 freshness_filter.max_age_days（默认 3 天）
+#   # - 正整数：覆盖全局设置，只推送此天数内的文章
+#   # - 0：禁用此频道的新鲜度过滤，推送所有文章
+#   feeds:
+#     - id: "hacker-news"
+#       name: "Hacker News"
+#       url: "https://hnrss.org/frontpage"
+#       # max_age_days: 1               # 示例：只推送1天内的文章
 
-    - id: "ruanyifeng"
-      name: "阮一峰的网络日志"
-      url: "http://www.ruanyifeng.com/blog/atom.xml"
-      # max_age_days: 7               # 示例：推送7天内的文章（更新较慢的博客）
+#     - id: "ruanyifeng"
+#       name: "阮一峰的网络日志"
+#       url: "http://www.ruanyifeng.com/blog/atom.xml"
+#       # max_age_days: 7               # 示例：推送7天内的文章（更新较慢的博客）
     
-    - id: "yahoo-finance"
-      name: "雅虎财经"
-      url: "https://finance.yahoo.com/news/rssindex"
-      enabled: false                  # 禁用
+#     - id: "yahoo-finance"
+#       name: "雅虎财经"
+#       url: "https://finance.yahoo.com/news/rssindex"
+#       enabled: false                  # 禁用
 
     # 自定义源示例
     # - id: "custom-feed"
@@ -134,7 +134,36 @@ rss:
     #   url: "https://example.com/feed.xml"
     #   enabled: false
     #   max_age_days: 0               # 示例：禁用过滤，推送所有文章
-
+rss:
+  enabled: true
+  freshness_filter:
+    enabled: true
+    max_age_days: 2 # 保持新闻新鲜
+  feeds:
+    # 1. AI 科技圈与大厂动向 (OpenAI, Claude, Google, 字节)
+    - id: "36kr-ai"
+      name: "36氪-AI前沿"
+      url: "https://36kr.com/feed/topics/15" # AI 垂直频道
+    - id: "infoq-ai"
+      name: "InfoQ-AI架构"
+      url: "https://www.infoq.cn/feed/topic/160"
+    - id: "jiqizhixin"
+      name: "机器之心"
+      url: "https://www.jiqizhixin.com/rss"
+    - id: "openai-blog"
+      name: "OpenAI Blog"
+      url: "https://openai.com/blog/rss.xml"
+    
+    # 2. 国内金融与房地产
+    - id: "wallstreetcn-macro"
+      name: "华尔街见闻-宏观"
+      url: "https://wallstreetcn.com/rss/macro"
+    - id: "wallstreetcn-estate"
+      name: "华尔街见闻-房地产"
+      url: "https://wallstreetcn.com/rss/estate"
+    - id: "caixin-finance"
+      name: "财新网-金融"
+      url: "http://mapp.caixin.com/rss/finance.xml" # 财新部分内容可能收费，视情况启用
 
 # ===============================================================
 # 4. 报告模式
@@ -155,7 +184,7 @@ rss:
 #    • 适用场景：避免重复信息干扰
 # ===============================================================
 report:
-  mode: "current"                     # 可选: daily | current | incremental
+  mode: "incremental"                     # 可选: daily | current | incremental
                                       # ⚠️ 开启调度系统后，此值会被当前时间段的 report_mode 覆盖
 
 
@@ -166,7 +195,7 @@ report:
   # 关键词组排序方式（仅 display_mode: keyword 时生效）
   # true: 按 frequency_words.txt 中的定义顺序排列
   # false: 按匹配到的热点条数排序（条数多的在前）
-  sort_by_position_first: false
+  sort_by_position_first: true
 
   rank_threshold: 5                   # 排名高亮阈值
 
@@ -340,7 +369,7 @@ storage:
 # ai_analysis 和 ai_translation 共用此模型配置
 # 基于 LiteLLM 统一接口，支持 100+ AI 提供商
 # ===============================================================
-ai:
+# ai:
   # LiteLLM 模型格式: provider/model_name
   # 示例:
   #   - deepseek/deepseek-chat (DeepSeek)
@@ -351,31 +380,13 @@ ai:
   # 完整列表: https://docs.litellm.ai/docs/providers
   # 如果你对于看英文文档比较头疼，那么可以点击页面右下角的 【Ask AI】 ,用中文询问怎么配置 
   
-  model: "deepseek/deepseek-chat"
-
-  api_key: ""                       # API Key（建议使用环境变量 AI_API_KEY）
-  
-  api_base: ""                      # 自定义 API 端点（可选，大多数情况留空）
-                                    # 示例: https://api.openai.com/v1（自建代理或兼容接口）
-                                    #
-                                    # 💡 超级重要：连接任意兼容 OpenAI 协议的模型商
-                                    # 如果你使用的模型商不在上述支持列表中，但提供了兼容 OpenAI 的接口：
-                                    #
-                                    # 1. api_base 填写: 服务商提供的接口地址
-                                    #    例如: https://api.example.com/v1
-                                    #
-                                    # 2. model 填写: "openai/" + 实际模型名称
-                                    #    例如: openai/deepseek-ai/DeepSeek-V3
-                                    #    (原理：前缀 openai/ 强制 LiteLLM 使用 OpenAI 协议格式进行通信)
-
-
-  timeout: 120                      # 请求超时（秒）
-
-  temperature: 1.0                  # 采样温度 (0.0-2.0)
-                                    # 注意：部分模型(如 gpt-5)可能要求必须为 1.0，否则会报错
-  
-  max_tokens: 5000                  # 最大生成 token 数
-                                    # 注意：如果 API 不支持此参数(报 HTTP 400)，请设为 0 以禁用发送
+ai:
+  enabled: true
+  provider: "openai"  # 保持为 openai，因为 OpenRouter 兼容 OpenAI SDK
+  base_url: "https://openrouter.ai/api/v1"  # 关键：指向 OpenRouter
+  model: "deepseek/deepseek-chat"  # 或者 "deepseek/deepseek-r1" (推理能力更强)
+  temperature: 0.7
+  # API Key 不要写在这里，我们要放在 GitHub Secrets 里
   # 高级选项
   num_retries: 1                    # 失败重试次数
   fallback_models: []               # 备用模型列表（可选）
