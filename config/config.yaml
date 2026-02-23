@@ -41,7 +41,7 @@ app:
 # ===============================================================
 schedule:
   enabled: true                         # 是否启用调度系统
-  preset: "morning_evening"             # 预设模板名称（见上方说明）
+  preset: "custom"                      # 预设模板名称（见上方说明）
 
 
 # ===============================================================
@@ -153,8 +153,46 @@ rss:
     - id: "openai-blog"
       name: "OpenAI Blog"
       url: "https://openai.com/blog/rss.xml"
+      - id: "hacker-news"
+      name: "Hacker News"
+      url: "https://hnrss.org/frontpage"
+      max_age_days: 1               # 示例：只推送1天内的文章
+
+    - id: "ruanyifeng"
+      name: "阮一峰的网络日志"
+      url: "http://www.ruanyifeng.com/blog/atom.xml"
+      max_age_days: 7               # 示例：推送7天内的文章（更新较慢的博客）
     
-    # 2. 国内金融与房地产
+    # 2. Claude & 智能应用
+    - id: "anthropic-blog"
+      name: "Anthropic 官方博客"
+      url: "https://www.anthropic.com/feed.xml"
+      max_age_days: 7               # Claude 更新较频繁
+    - id: "claude-releases"
+      name: "GitHub Claude 项目"
+      url: "https://github.com/anthropics/anthropic-sdk-python/releases.atom"
+      max_age_days: 3
+    - id: "openclaw-news"
+      name: "OpenClaw 最新动态"
+      url: "https://octo.ai/feeds/recent-updates/"
+      enabled: true
+      max_age_days: 3
+
+    # 3. AI 前沿与技术深度
+    - id: "arxiv-ai"
+      name: "arXiv AI 论文"
+      url: "http://arxiv.org/rss/cs.AI"
+      max_age_days: 5
+    - id: "ai-news-daily"
+      name: "AI Daily News"
+      url: "https://www.ailoudexp.com/feed"
+      max_age_days: 2
+    - id: "deepseek-news"
+      name: "DeepSeek 动态"
+      url: "https://github.com/deepseek-ai/DeepSeek-V3/releases.atom"
+      max_age_days: 3
+
+    # 4. 国内金融与房地产
     - id: "wallstreetcn-macro"
       name: "华尔街见闻-宏观"
       url: "https://wallstreetcn.com/rss/macro"
@@ -164,6 +202,26 @@ rss:
     - id: "caixin-finance"
       name: "财新网-金融"
       url: "http://mapp.caixin.com/rss/finance.xml" # 财新部分内容可能收费，视情况启用
+
+    # 5. 房地产市场追踪
+    - id: "fang-com-beijing"
+      name: "房天下-北京房产"
+      url: "https://beijing.fang.com/news/rss.html"
+      max_age_days: 1
+    - id: "soufun-estate"
+      name: "搜房网-房产资讯"
+      url: "https://news.soufun.com/cityFeed.xml"
+      max_age_days: 1
+    - id: "homelink-estate"
+      name: "链家-市场动向"
+      url: "https://m.lianjia.com/market/"
+      enabled: false                # 需要手动启用，需要检查RSS地址
+      max_age_days: 1
+    - id: "lianjia-haidian-news"
+      name: "链家-北京海淀"
+      url: "https://news.lianjia.com/beijing/haidian"
+      enabled: false                # 链家RSS可能需要特殊配置
+      max_age_days: 1
 
 # ===============================================================
 # 4. 报告模式
