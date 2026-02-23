@@ -153,7 +153,7 @@ rss:
     - id: "openai-blog"
       name: "OpenAI Blog"
       url: "https://openai.com/blog/rss.xml"
-      - id: "hacker-news"
+    - id: "hacker-news"
       name: "Hacker News"
       url: "https://hnrss.org/frontpage"
       max_age_days: 1               # 示例：只推送1天内的文章
