@@ -411,8 +411,8 @@ custom:
   periods:
     noon_push:
       name: "中午11:50推送"
-      start: "11:50"               # 中午11:50
-      end: "12:10"                 # 留20分钟的推送窗口
+      start: "11:30"               # 11:30开始
+      end: "12:30"                 # 到12:30结束（60分钟窗口，确保11:33和12:33都能hit到）
       analyze: true                # 做 AI 分析
       ai_mode: "daily"             # AI 分析全天内容
       push: true                   # 推送通知
